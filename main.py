@@ -10,4 +10,4 @@ app = create_app()
 # data = json.loads(response.content)
 # st.write(data)
 if __name__ == '__main__':
-    app.run(debug=False,host="0.0.0.0",port="50000")
+    app.run(debug=False,host="0.0.0.0",port="0")
