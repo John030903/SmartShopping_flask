@@ -1,6 +1,6 @@
 from website import create_app
-import requests
-import json
+from streamlit import caching
+
 # import streamlit as st
 
 app = create_app()
@@ -9,5 +9,20 @@ app = create_app()
 # response = requests.get("http://127.0.0.1:5000", headers=headers)
 # data = json.loads(response.content)
 # st.write(data)
+# if __name__ == '__main__':
+#     app.run(debug=False,host="0.0.0.0",port="37647")
+
+from flask import Flask
+
+app = Flask(__name__)
+
+def run_flask():
+   app.run(debug=False,host="0.0.0.0",port="37647")
+
+def run_streamlit():
+    caching.clear_cache()
+    run_flask()
+
 if __name__ == '__main__':
-    app.run(debug=False,host="0.0.0.0",port="0")
+    run_streamlit()
+
