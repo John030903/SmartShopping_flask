@@ -4,10 +4,10 @@
   data-view-id="product_list_container"
   class="ProductList__Wrapper-sc-1dl80l2-0 Kxajl"
 >
-  {% for item in items %} 
+  {% for index in range(items.shape[0]) %}
   <a
     class="product-item"
-    href={{ item["clickUrl"] }}
+    href={{ items.loc[index,"click_url"] }}
     data-view-index="0"
     data-view-id="product_list_item"
     rel="nofollow"
@@ -15,11 +15,11 @@
   >
     <div class="style__StyledItem-sc-18svp8n-0 fkDgwT">
       <div class="thumbnail">
-        <img src={{item["thumbnail_url"]}} loading = "lazy"/>
+        <img src={{items.loc[index,"thumbnail_url"]}} loading = "lazy"/>
       </div>
       <div class="info">
         <div class="name">
-          <span> {{item["name"]}} </span>
+          <span> {{items.loc[index,"name"]}} </span>
         </div>
         <div
           class="styles__StyledRatingQtySold-sc-732h27-0 uDeVr"
@@ -111,7 +111,7 @@
             <div
               class="average"
               style="
-                width: {{item["rating_average"]}}%
+                width: {{items.loc[index,"star_average"]}}%
               "
             >
               <svg
@@ -198,11 +198,11 @@
           </div>
           <div class="styles__StyledSeparator-sc-732h27-1 gcwbHk"></div>
           <div class="styles__StyledQtySold-sc-732h27-2 fCfYNm">
-            Đã bán {{item["sold"]}}
+            Đã bán {{items.loc[index,"sold"]}}
           </div>
         </div>
       </div>
-      <div class="price">{{item["price"]}} đ</div>
+      <div class="price">{{items.loc[index,"price"]}} đ</div>
     </div>
   </a>
   {% endfor %}

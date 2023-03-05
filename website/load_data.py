@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from numpy import random
 from bs4 import BeautifulSoup
 from .fill_items import tiki_filter, lazada_filter, shopee_filter
+import pandas as pd
 
 TIKI_API = "https://tiki.vn/api/v2/products?limit=48&include=advertisement&aggregations=2&trackity_id=a818abb0-b29b-a7e7-c95b-bfa1603a6b24&q={}&sort=top_seller"
 LAZADA_API = "https://www.lazada.vn/catalog/?_keyori=ss&ajax=true&from=input&isFirstRequest=true&page=1&q={}&spm=a2o4n.store_product.search.go.3f1b1380SEs25s"
@@ -50,12 +51,12 @@ def load_data(search_key):
     items = tiki_filter(tiki_items)
     try:
         lazada_items = use_api(LAZADA_API.format(search_key))["mods"]["listItems"]
-        items += lazada_filter(lazada_items)
+        items = pd.concat([items,lazada_filter(lazada_items)], ignore_index=True)
     except:
         pass
     try:
         shopee_items = use_browser(search_key)
-        items += shopee_filter(shopee_items)
+        items = pd.concat([items,shopee_filter(shopee_items)], ignore_index=True)
     except:
         pass
     return items
